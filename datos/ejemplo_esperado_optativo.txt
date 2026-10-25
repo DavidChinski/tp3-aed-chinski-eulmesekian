@@ -1,0 +1,12 @@
+Jugadores con goles: 3
+Maximo goleador: Mbappe (3 goles)
+
+Goleadores por nombre:
+Di Maria: 1
+Mbappe: 3
+Messi: 2
+
+Goleadores por goles:
+Mbappe: 3
+Messi: 2
+Di Maria: 1
