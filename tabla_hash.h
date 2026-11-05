@@ -2,8 +2,9 @@
 #define TABLA_HASH_H
 
 #include <cstddef>
-
 #include "funcion_hash.h"
+
+#include <vector>
 
 // TAD TablaHash<K, V>: tabla de hash con direccionamiento cerrado.
 //
@@ -16,6 +17,11 @@
 //
 // Invariante de representacion:
 //   COMPLETAR: escriban aca el invariante de la representacion que elijan.
+
+//El vector Buckets tiene al menos una posicion. La clave no es repite en el vector.
+//La clave cae en la en el int que devuelve la funcion hash mod N, con N = buckets.size   
+
+
 //
 // Complejidades: n es la cantidad de claves guardadas y c la capacidad.
 // "Promedio" supone que la funcion de hash reparte las claves de manera
@@ -26,6 +32,14 @@ class TablaHash {
     // COMPLETAR: la representacion la eligen ustedes (que guardan, y que hay
     // en cada bucket). Pueden agregar tambien funciones auxiliares privadas.
     // Lo que el Iterador necesite de aca tiene que estar declarado antes que el.
+    struct Nodo {
+        K clave;
+        V valor;
+        Nodo* sig;
+        Nodo(const K& c, const V& v, Nodo* s) : clave(c), valor(v), sig(s) {}
+    };
+    std::vector<Nodo*> buckets;
+    size_t n;    
 
   public:
     static const size_t FACTOR_DE_CARGA_MAXIMO = 2;
@@ -132,44 +146,118 @@ class TablaHash {
 // Implementacion. Al ser una clase template, va en el mismo .h.
 // ---------------------------------------------------------------------------
 
+// Crea la tabla vacia: n = 0 y capacidad_inicial buckets, todos en nullptr.
 template <typename K, typename V>
 TablaHash<K, V>::TablaHash(size_t capacidad_inicial) {
-    // COMPLETAR
+    n = 0;
+    for (size_t i = 0; i < capacidad_inicial; i++) {
+        buckets.push_back(nullptr);
+    }
 }
 
+// Recorre cada bucket y borra (delete) todos los nodos de su lista,
+// guardando el siguiente antes de borrar el actual.
 template <typename K, typename V>
 TablaHash<K, V>::~TablaHash() {
-    // COMPLETAR
+    for (size_t i = 0; i < buckets.size(); i++) {
+        Nodo* actual = buckets[i];
+        while (actual != nullptr) {
+            Nodo* siguiente = actual->sig;
+            delete actual;
+            actual = siguiente;
+        }
+    }
 }
 
+// Calcula el bucket de la clave y agrega un nodo nuevo al principio de su
+// lista. No chequea si la clave ya esta (pre: no esta). Suma 1 a n.
+// FALTA: redimensionar cuando se supera el factor de carga.
 template <typename K, typename V>
 void TablaHash<K, V>::insertar(const K& clave, const V& valor) {
-    // COMPLETAR
+    
+    size_t indice = funcion_hash(clave) % buckets.size();
+    Nodo* actual = buckets[indice];
+    Nodo* a_insertar = new Nodo(clave, valor, nullptr);
+    
+    if (actual == nullptr){
+        buckets[indice] = a_insertar;
+        n++;
+        return;
+    }
+    a_insertar->sig = buckets[indice];
+    buckets[indice] = a_insertar;
+    n++;
+
+    return;
+    
 }
 
+// Calcula el bucket de la clave, la busca en la lista y desengancha y borra
+// su nodo (caso aparte si es la cabeza). Resta 1 a n. Pre: la clave esta.
 template <typename K, typename V>
 void TablaHash<K, V>::eliminar(const K& clave) {
-    // COMPLETAR
+    
+    size_t indice = funcion_hash(clave) % buckets.size();
+
+    Nodo* actual = buckets[indice];
+    if (actual == nullptr) return;
+    if (actual->sig == nullptr && actual->clave == clave){
+        buckets[indice] = nullptr;
+        delete actual;
+        n--;
+        return;
+    }
+    if (actual->clave == clave){
+        buckets[indice] = actual->sig;
+        delete actual;
+        n--;
+        return;
+    }
+    
+    Nodo* anterior = nullptr;
+    while (actual != nullptr){
+        if (actual->clave == clave){
+            anterior->sig = actual->sig;
+            delete actual;
+            n--;
+            return;
+        }
+        anterior = actual;
+        actual = actual->sig;
+    }
+
 }
 
+
+// Calcula el bucket de la clave y recorre su lista. Si encuentra la clave,
+// devuelve un puntero a su valor (para leerlo o modificarlo); si no, nullptr.
 template <typename K, typename V>
 V* TablaHash<K, V>::buscar(const K& clave) {
-    // COMPLETAR
+    
+    size_t indice = funcion_hash(clave) % buckets.size();
+    Nodo* actual = buckets[indice];
+    while (actual != nullptr){
+        if (actual->clave == clave){
+            return &actual->valor;
+        }
+        actual = actual->sig; 
+    }
     return nullptr;
 }
 
+// Devuelve n, la cantidad de claves guardadas.
 template <typename K, typename V>
 size_t TablaHash<K, V>::cantidad() {
-    // COMPLETAR
-    return 0;
+    return n;
 }
 
+// Devuelve la cantidad de buckets (el tamanio del vector).
 template <typename K, typename V>
 size_t TablaHash<K, V>::capacidad() {
-    // COMPLETAR
-    return 0;
+    return buckets.size();
 }
 
+// Devuelve n menos la cantidad de buckets no vacios. FALTA implementar.
 template <typename K, typename V>
 size_t TablaHash<K, V>::colisiones() {
     // COMPLETAR

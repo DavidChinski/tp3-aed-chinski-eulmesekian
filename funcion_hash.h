@@ -14,7 +14,11 @@
 // Post: devuelve un numero que depende unicamente del contenido de la clave
 //       (dos claves iguales tienen siempre el mismo hash).
 // Costo: O(m), con m el largo del string.
-size_t funcion_hash(const std::string& clave);
+size_t funcion_hash(const std::string& clave){
+}
+
+    
+
 
 // Costo: O(1).
 size_t funcion_hash(int clave);
