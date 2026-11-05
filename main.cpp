@@ -21,10 +21,16 @@ int main() {
         }
     }
 
-    std::cout << "Jugadores con goles:" << mundial.cantidad_de_jugadores() << std::endl;
-    std::cout << "Maximo goleador: " << mundial.maximo_goleador() << " (" << mundial.goles(maximo) << "goles)" << std::endl;
-    // COMPLETAR: imprimir, con el formato del enunciado, la cantidad de
-    // jugadores con goles y el maximo goleador (con sus goles).
+    std::cout << "Jugadores con goles: "
+          << mundial.cantidad_de_jugadores() << std::endl;
+
+    if (mundial.cantidad_de_jugadores() > 0) {
+        std::string maximo = mundial.maximo_goleador();
+
+        std::cout << "Maximo goleador: " << maximo
+              << " (" << mundial.goles(maximo) << " goles)"
+              << std::endl;
+}
 
     if (CON_LISTADOS) {
         std::cout << std::endl;

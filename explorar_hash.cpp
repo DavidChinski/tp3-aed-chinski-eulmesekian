@@ -13,19 +13,20 @@
 const size_t CAPACIDAD_INICIAL = 8;
 
 int main() {
-    // COMPLETAR: crear una TablaHash<std::string, int> con CAPACIDAD_INICIAL.
-
+    
+    TablaHash<std::string, int> tabla(CAPACIDAD_INICIAL);
     std::string jugador;
     while (std::getline(std::cin, jugador)) {
         if (jugador != "") {
-            // En este punto, jugador tiene el nombre de quien hizo el gol.
-            // COMPLETAR: si el jugador todavia no esta en la tabla, insertarlo
-            // (el valor no importa).
+           if (tabla.buscar(jugador) == nullptr){
+                tabla.insertar(jugador, 1);
+           }
         }
     }
 
-    // COMPLETAR: imprimir la cantidad de claves, la capacidad final y la
-    // cantidad de colisiones de la tabla.
+    std::cout << "Claves: " << tabla.cantidad() << std::endl;
+    std::cout << "Capacidad: " << tabla.capacidad() << std::endl;
+    std::cout << "Colisiones: " << tabla.colisiones() << std::endl;
 
     return 0;
 }
