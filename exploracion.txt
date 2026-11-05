@@ -1,0 +1,66 @@
+* Hash 1: toma el largo de las palabras:
+
+    codigo: return clave.length();
+
+    Capacidad = 64:
+
+    Claves: 75
+    Capacidad: 64
+    Colisiones: 62
+
+    Capacidad = 67: 😂
+
+    Claves: 75
+    Capacidad: 67
+    Colisiones: 62
+
+
+
+
+
+* Hash 2: Suma de caracteres:
+
+    codigo: 
+    size_t resultado = 0;
+
+    for (size_t i = 0; i < clave.length(); i++) {
+        resultado += clave[i];
+    }
+
+    return resultado;
+
+    Capacidad = 64:
+
+    Claves: 75
+    Capacidad: 64
+    Colisiones: 29
+
+    Capacidad = 67:
+
+    Claves: 75
+    Capacidad: 67
+    Colisiones: 30
+
+* Hash 3: Multiplicado por base 37:
+
+    codigo:
+    size_t resultado = 0;
+
+    for (size_t i = 0; i < clave.length(); i++) {
+        resultado = resultado * 37 + clave[i];
+    }
+
+    return resultado;
+
+    Capacidad = 64:
+
+    Claves: 75
+    Capacidad: 64
+    Colisiones: 28
+
+    Capacidad = 67:
+
+    Claves: 75
+    Capacidad: 67
+    Colisiones: 30
+

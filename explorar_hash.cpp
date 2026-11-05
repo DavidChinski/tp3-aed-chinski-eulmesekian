@@ -10,7 +10,7 @@
 // Uso: ./explorar_hash < datos/goles.txt
 
 // Prueben tambien con otras capacidades iniciales.
-const size_t CAPACIDAD_INICIAL = 8;
+const size_t CAPACIDAD_INICIAL = 67;
 
 int main() {
     
