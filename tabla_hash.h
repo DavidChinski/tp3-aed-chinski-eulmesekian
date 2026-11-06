@@ -18,10 +18,12 @@
 
 
 // Invariante de representacion:
-//El vector Buckets tiene al menos una posicion. La clave no se repite en el vector.
-//La clave cae en la en el int que devuelve la funcion hash mod M, con M = buckets.size   
+//El vector Buckets tiene al menos una posicion. La clave no se repite en el 
+// vector y ningún nodo esta en dos buckets
+//La clave cae en el int que devuelve la funcion hash mod M, con M = buckets.size   
 // n es cantidad total de nodos
 // n <= FACTOR_DE_CARGA_MAXIMO * buckets.size();
+// cada lista termina en nullptr
 
 
 // Complejidades: n es la cantidad de claves guardadas y c la capacidad.
@@ -30,9 +32,6 @@
 template <typename K, typename V>
 class TablaHash {
   private:
-    // COMPLETAR: la representacion la eligen ustedes (que guardan, y que hay
-    // en cada bucket). Pueden agregar tambien funciones auxiliares privadas.
-    // Lo que el Iterador necesite de aca tiene que estar declarado antes que el.
     struct Nodo {
         K clave;
         V valor;
@@ -100,12 +99,11 @@ class TablaHash {
     //----------------------------------------------
     // Invariante de representacion:
     // si actual = nullptr no hay mas por recorrer
-    // si actual != nullptr, entonces indice < buckets.size()
+    // si actual != nullptr, entonces indice < buckets.size() y actual es un 
+    // nodo de la lista tabla->buckets[indice]
     // el atributo tabla apunta a la tabla que queremos recorrer
     class Iterador {
       private:
-        // COMPLETAR: la representacion la eligen ustedes. Desde aca se puede
-        // usar la parte privada de la tabla.
         TablaHash* tabla; 
         size_t indice;     
         Nodo* actual;      

@@ -3,7 +3,6 @@
 #include <iostream>
 
 Goleadores::Goleadores() {
-    // COMPLETAR (si hace falta)
 }
 
 void Goleadores::anotar_gol(const std::string& jugador) {
@@ -33,7 +32,6 @@ size_t Goleadores::cantidad_de_jugadores() {
 }
 
 std::string Goleadores::maximo_goleador() {
-    // COMPLETAR
     return maximo;
 }
 

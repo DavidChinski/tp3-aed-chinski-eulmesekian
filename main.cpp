@@ -11,7 +11,6 @@ const bool CON_LISTADOS = false;
 //
 // Uso: ./goleadores < datos/ejemplo.txt
 int main() {
-    // COMPLETAR: crear la estructura donde se van a cargar los goles.
     Goleadores mundial;
     std::string jugador;
     while (std::getline(std::cin, jugador)) {

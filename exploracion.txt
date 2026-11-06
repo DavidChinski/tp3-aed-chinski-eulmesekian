@@ -4,8 +4,8 @@ diferencia de la función suma.
 
 Con las funciones malas, suelen chocar nombres que comparten lo que 
 la función tiene en cuenta: con largo, los que tienen la misma cantidad
- de letras; y con suma, los que tienen los mismos caracteres, aunque estén 
- en distinto orden (como los anagramas).
+de letras; y con suma, los que tienen los mismos caracteres, aunque estén 
+en distinto orden, como los anagramas.
 
 Con respecto a usar una capacidad potencia de 2, en nuestras pruebas no hubo 
 mucha diferencia. Aunque, en teoría, usar una capacidad prima puede dar 

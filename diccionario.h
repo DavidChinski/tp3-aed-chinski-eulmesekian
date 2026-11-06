@@ -79,7 +79,6 @@ class Diccionario {
         // Post: devuelve la clave actual, sin modificar el iterador.
         // Costo: O(1).
         K clave() {
-            // COMPLETAR (reemplazar la linea de abajo)
             return de_la_tabla.clave();
         }
 
@@ -88,8 +87,6 @@ class Diccionario {
         //       el iterador.
         // Costo: O(1).
         V valor() {
-            // COMPLETAR (reemplazar la linea de abajo)
-
             return de_la_tabla.valor();
         }
 
